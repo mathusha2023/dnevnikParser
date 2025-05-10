@@ -1,29 +1,31 @@
+from aiogram import Bot, Dispatcher
+from aiogram.client.default import DefaultBotProperties
+from aiogram.fsm.storage.memory import MemoryStorage
+import asyncio
+import logging
 import os
+import config
+from config import DATABASE_FILE
+from handlers import main_router
 
-from all_marks_parser import parse_all_marks
-from sign_in import sign_in
-from week_parser import parse_week_marks
 
-if not os.path.exists("cookies.json"):
-    login = input("Введите ваш логин: ")
-    password = input("Введите ваш пароль: ")
-    get_code_callback = lambda: input("Введите код из СМС: ")
+async def main():
+    bot = Bot(token=config.BOT_TOKEN, default=DefaultBotProperties(parse_mode="html"))
+    dp = Dispatcher(storage=MemoryStorage())
+    dp.include_router(main_router)
+    await bot.delete_webhook(drop_pending_updates=True)
+    try:
+        await dp.start_polling(bot)
+    except asyncio.exceptions.CancelledError:
+        logging.info("The polling cycle was interrupted")
 
-    sign_in(login, password, get_code_callback)
 
-mode = input("""Какие данные вы хотите получить?
-1 - Получить все оценки
-2 - Получить все данные за текущую неделю
-Ваш выбор: """)
+if __name__ == "__main__":
 
-while mode not in ("1", "2"):
-    mode = input("""Нет такого варианта!
-1 - Получить все оценки
-2 - Получить все данные за текущую неделю
-Ваш выбор:    """)
+    # создаем пустой файл базы данных, если его не существует
+    if not os.path.exists("data.json"):
+        with open(DATABASE_FILE, "w") as file:
+            file.write("{}")
 
-print("\n\n\n")
-if mode == "1":
-    parse_all_marks()
-elif mode == "2":
-    parse_week_marks()
+    logging.basicConfig(level=logging.DEBUG)
+    asyncio.run(main())
