@@ -1,5 +1,6 @@
 import json
 import config
+import parser.all_marks_parser
 
 
 class Database:
@@ -39,6 +40,14 @@ class Database:
         if user.get("cookies", None):
             del user["cookies"]
             self.write_data(data)
+
+    def get_all_marks(self, user_id):
+        data = self.get_data()
+        user = data[str(user_id)]
+        cookies = user["cookies"]
+        marks = parser.all_marks_parser.parse_all_marks(cookies)
+        return marks
+
 
 
 database = Database(config.DATABASE_FILE)
