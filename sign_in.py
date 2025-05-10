@@ -6,7 +6,7 @@ from selenium.webdriver.support import expected_conditions as EC
 import time
 import json
 
-def sign_in(login, password):
+def sign_in(login, password, get_code_callback):
 
     options = Options()
     options.add_argument("--headless")
@@ -33,7 +33,7 @@ def sign_in(login, password):
         EC.presence_of_all_elements_located((By.CLASS_NAME, "empty")))
 
     buttons = driver.find_elements(By.TAG_NAME, "input")
-    code = input("Введите код подтверждения: ")
+    code = get_code_callback()
 
     for button, char in zip(buttons, code):
         button.send_keys(char)
