@@ -5,7 +5,7 @@ import sys
 from config import ALL_MARKS_URL, HEADERS
 
 try:
-    with open("cookies.json") as file:
+    with open("../cookies.json") as file:
         cookies = json.load(file)
 except FileNotFoundError:
     print("Что то пошло не так (попробуйте выполнить скрипт sign-in или вручную пропишите куки в файле cookies.json)")

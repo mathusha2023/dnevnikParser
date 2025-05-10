@@ -17,7 +17,7 @@ class Database:
 
     def add_user_if_not_exists(self, user_id, user_name):
         data = self.get_data()
-        if data.get(user_id, None) is None:
+        if data.get(str(user_id), None) is None:
             data[user_id] = {"name": user_name}
             self.write_data(data)
 
@@ -26,6 +26,19 @@ class Database:
         user = data[str(user_id)]
         cookies = user.get("cookies", None)
         return cookies is not None
+
+    def write_cookies(self, user_id, cookies):
+        data = self.get_data()
+        user = data[str(user_id)]
+        user["cookies"] = cookies
+        self.write_data(data)
+
+    def logout(self, user_id):
+        data = self.get_data()
+        user = data[str(user_id)]
+        if user.get("cookies", None):
+            del user["cookies"]
+            self.write_data(data)
 
 
 database = Database(config.DATABASE_FILE)
