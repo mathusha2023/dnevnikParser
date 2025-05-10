@@ -1,0 +1,31 @@
+import json
+import config
+
+
+class Database:
+    def __init__(self, fp):
+        self.fp = fp
+
+    def get_data(self):
+        with open(self.fp) as file:
+            data = json.load(file)
+        return data
+
+    def write_data(self, data):
+        with open(self.fp, "w") as file:
+            json.dump(data, file)
+
+    def add_user_if_not_exists(self, user_id, user_name):
+        data = self.get_data()
+        if data.get(user_id, None) is None:
+            data[user_id] = {"name": user_name}
+            self.write_data(data)
+
+    def is_logged_in(self, user_id):
+        data = self.get_data()
+        user = data[str(user_id)]
+        cookies = user.get("cookies", None)
+        return cookies is not None
+
+
+database = Database(config.DATABASE_FILE)

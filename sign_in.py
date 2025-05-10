@@ -5,14 +5,15 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.support import expected_conditions as EC
 import time
 import json
+from config import AUTH_URL
+
 
 def sign_in(login, password, get_code_callback):
 
     options = Options()
     options.add_argument("--headless")
     driver = webdriver.Chrome(options=options)
-
-    driver.get("https://dnevnik.admin-smolensk.ru/journal-esia-action/")
+    driver.get(AUTH_URL)
 
     WebDriverWait(driver, 10).until(
         EC.presence_of_element_located((By.ID, "login")))

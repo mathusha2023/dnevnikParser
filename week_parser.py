@@ -2,11 +2,9 @@ import json
 import requests as r
 from bs4 import BeautifulSoup
 import sys
+from config import HEADERS, WEEK_DATA_URL
 
-url = "https://dnevnik.admin-smolensk.ru/journal-app/week.0"
-
-headers = {"Content-Type": "application/octet-stream",
-           "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36"}
+url = WEEK_DATA_URL(0)
 
 try:
     with open("cookies.json") as file:
@@ -15,7 +13,7 @@ except FileNotFoundError:
     print("Что то пошло не так (попробуйте выполнить скрипт sign-in или вручную пропишите куки в файле cookies.json)")
     sys.exit()
 
-resp = r.get(url, headers=headers, cookies=cookies)
+resp = r.get(url, headers=HEADERS, cookies=cookies)
 status_code = resp.status_code
 if status_code != 200:
     print(f"Error: {status_code=}")
