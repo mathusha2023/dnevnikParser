@@ -14,8 +14,7 @@ def parse_week_marks():
         with open("cookies.json") as file:
             cookies = json.load(file)
     except FileNotFoundError:
-        print(
-            "Что то пошло не так (попробуйте выполнить скрипт sign-in или вручную пропишите куки в файле cookies.json)")
+        print("Что то пошло не так (попробуйте удалить файл cookies.json или вручную пропишите куки в файле)")
         sys.exit()
 
     resp = r.get(url, headers=headers, cookies=cookies)
@@ -57,5 +56,4 @@ def parse_week_marks():
                 print(number, subject, str_mark, str_task)
             print()
     else:
-        print(
-            "Что то пошло не так (попробуйте выполнить скрипт sign-in или вручную пропишите куки в файле cookies.json)")
+        print("Что то пошло не так (попробуйте удалить файл cookies.json или вручную пропишите куки в файле)")

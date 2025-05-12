@@ -1,5 +1,4 @@
 import os
-
 from all_marks_parser import parse_all_marks
 from sign_in import sign_in
 from week_parser import parse_week_marks

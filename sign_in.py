@@ -9,7 +9,7 @@ import json
 def sign_in(login, password, get_code_callback):
 
     options = Options()
-    options.add_argument("--headless")
+    # options.add_argument("--headless")
     driver = webdriver.Chrome(options=options)
 
     driver.get("https://dnevnik.admin-smolensk.ru/journal-esia-action/")
