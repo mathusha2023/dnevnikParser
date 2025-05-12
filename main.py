@@ -27,3 +27,4 @@ if mode == "1":
     parse_all_marks()
 elif mode == "2":
     parse_week_marks()
+input()
