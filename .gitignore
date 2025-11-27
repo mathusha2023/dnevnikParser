@@ -2,3 +2,6 @@
 .venv
 __pycache__
 cookies.json
+dist
+build
+main.spec

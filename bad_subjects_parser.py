@@ -40,6 +40,7 @@ def parse_bad_subjects():
 
     d = {}
     if subjects:
+        f = False
         for subject in subjects:
             marks_list = []
             marks_html = parsed_html.find_all("div", attrs={"name": subject})[
@@ -67,6 +68,7 @@ def parse_bad_subjects():
 
             av = round(summa / count) if count else 0
             if av < wanted_mark:
+                f = True
                 print(sub)
                 print("Текущие отметки: ", end="")
                 print(*marks)
@@ -75,6 +77,8 @@ def parse_bad_subjects():
                 wanted_count = get_marks_count_for_wanted(wanted_mark, summa, count)
                 print(f"Необходимо оценок {wanted_mark} до получения желаемой оценки: {wanted_count}")
                 print()
+        if not f:
+            print("Вы молодец! Все ваши отметки уже находятся на требуемом уровне")
     else:
         print("Что то пошло не так (попробуйте удалить файл cookies.json или вручную пропишите куки в файле)")
 

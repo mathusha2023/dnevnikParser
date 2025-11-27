@@ -38,6 +38,8 @@ def sign_in(login, password, get_code_callback):
     for button, char in zip(buttons, code):
         button.send_keys(char)
 
+    print("Входим. Подождите...")
+
     # MAX fix
     time.sleep(10)
     skip_btn = driver.find_element(By.XPATH, "//button[contains(text(), 'Пропустить')]")
