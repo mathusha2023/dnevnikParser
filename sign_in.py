@@ -38,6 +38,11 @@ def sign_in(login, password, get_code_callback):
     for button, char in zip(buttons, code):
         button.send_keys(char)
 
+    # MAX fix
+    time.sleep(10)
+    skip_btn = driver.find_element(By.XPATH, "//button[contains(text(), 'Пропустить')]")
+    skip_btn.click()
+
     time.sleep(20)
     full_cookies = driver.get_cookies()
     cookies = {x["name"]: x["value"] for x in full_cookies}
