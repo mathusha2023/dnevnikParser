@@ -19,6 +19,7 @@ def parse_bad_subjects():
             break
         except Exception as e:
             wanted_mark = input("Введите корректную оценку: ")
+    print()
 
     try:
         with open("cookies.json") as file:
