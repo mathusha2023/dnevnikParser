@@ -2,6 +2,7 @@ import json
 import requests as r
 from bs4 import BeautifulSoup
 import sys
+from colorama import Fore
 
 
 def parse_week_marks():
@@ -29,7 +30,7 @@ def parse_week_marks():
     if columns:
         for day in columns:
             title = day.find("div", class_="dnevnik-day__title").text.strip()
-            print(title)
+            print(Fore.RED + title + Fore.RESET)
             lessons = day.find_all("div", class_="dnevnik-lesson")
             for lesson in lessons:
                 number = lesson.find("div", class_="dnevnik-lesson__number").text.strip()
@@ -53,7 +54,7 @@ def parse_week_marks():
                     else:
                         str_weight = ""
                     str_mark = f"{mark.text.strip()[0]}{str_weight}"
-                print(number, subject, str_mark, str_task)
-            print()
+                print(Fore.WHITE + number, Fore.CYAN + subject, Fore.YELLOW + str_task, Fore.GREEN + str_mark)
+            print(Fore.RESET)
     else:
         print("Что то пошло не так (попробуйте удалить файл cookies.json или вручную пропишите куки в файле)")

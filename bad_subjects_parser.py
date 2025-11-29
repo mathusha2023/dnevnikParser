@@ -1,6 +1,7 @@
 import json
 import requests as r
 from bs4 import BeautifulSoup
+from colorama import Fore
 import sys
 
 
@@ -70,16 +71,16 @@ def parse_bad_subjects():
             av = round(summa / count) if count else 0
             if av < wanted_mark:
                 f = True
-                print(sub)
-                print("Текущие отметки: ", end="")
+                print(Fore.CYAN + sub)
+                print(Fore.GREEN + "Текущие отметки: ", end="")
                 print(*marks)
                 if count:
-                    print(f"Средняя: {round(summa / count, 2)}")
+                    print(Fore.YELLOW + f"Средняя: {round(summa / count, 2)}")
                 wanted_count = get_marks_count_for_wanted(wanted_mark, summa, count)
-                print(f"Необходимо оценок {wanted_mark} до получения желаемой оценки: {wanted_count}")
-                print()
+                print(Fore.RED + f"Необходимо оценок {wanted_mark} до получения желаемой оценки: {wanted_count}")
+                print(Fore.RESET)
         if not f:
-            print("Вы молодец! Все ваши отметки уже находятся на требуемом уровне")
+            print(Fore.GREEN + "Вы молодец! Все ваши отметки уже находятся на требуемом уровне" + Fore.RESET)
     else:
         print("Что то пошло не так (попробуйте удалить файл cookies.json или вручную пропишите куки в файле)")
 

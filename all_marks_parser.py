@@ -1,6 +1,7 @@
 import json
 import requests as r
 from bs4 import BeautifulSoup
+from colorama import Fore
 import sys
 
 
@@ -55,10 +56,10 @@ def parse_all_marks():
                     summa += m * k
                     count += k
 
-            print(sub)
+            print(Fore.CYAN + sub + Fore.GREEN)
             print(*marks)
             if count:
-                print(f"Средняя: {round(summa / count, 2)}")
-            print()
+                print(Fore.YELLOW + f"Средняя: {round(summa / count, 2)}")
+            print(Fore.RESET)
     else:
         print("Что то пошло не так (попробуйте удалить файл cookies.json или вручную пропишите куки в файле)")
